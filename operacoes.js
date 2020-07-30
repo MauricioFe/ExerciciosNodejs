@@ -7,4 +7,4 @@ function subtracao(a, b) {
 }
 
 
-module.exports = { soma, subtracao };
+export default { soma, subtracao };
