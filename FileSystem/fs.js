@@ -1,6 +1,7 @@
-//utizando promisses
 import { promises as fs } from "fs";
-init();
+//init();
+writeReadJson();
+//utizando promisses
 // fs.writeFile("teste.txt", "bla bla bla").then(() => {
 //     fs.appendFile("teste.txt","\nteste append file").then(() => {
 //         fs.readFile("teste.txt", "utf-8").then(resp => {
@@ -10,13 +11,33 @@ init();
 // }).catch(err => console.log(err));
 
 
-/*Async await*/
+/*utizando promisses com Async await*/
 async function init() {
     try {
         await fs.writeFile("teste.txt", "bla bla bla");
         await fs.appendFile("teste.txt", "\nteste append file");
-       const resp =  await fs.readFile("teste.txt", "utf-8");
+        const resp = await fs.readFile("teste.txt", "utf-8");
         console.log(resp);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function writeReadJson() {
+    try {
+        //Escrita com valores iniciais
+        const arrayCarros = ["Gol", "Pálio", "Uno"];
+        const obj = { carros: arrayCarros };
+        await fs.writeFile("teste.json", JSON.stringify(obj));
+
+        //Leitura do arquivo
+        const data = JSON.parse(await fs.readFile("teste.json"));
+        
+        //Sobreescrita do aruqivo com novos valores
+        data.carros.push("Sandero");
+        await fs.writeFile("teste.json", JSON.stringify(data));
+
+        console.log(data);
     } catch (err) {
         console.log(err);
     }
